@@ -1,15 +1,23 @@
 # Uses python3
 import sys
 
-def lcm_naive(a, b):
-    for l in range(1, a*b + 1):
-        if l % a == 0 and l % b == 0:
-            return l
+def gcd_fast(a,b):
+    val = [a,b]
+    val.sort()
+    a = val[1]
+    b = val[0]
 
-    return a*b
+    if b == 0:
+        return a
+    else :
+        return gcd_fast(a % b, b)
+
+def lcm_fast(a, b):
+    multiple = gcd_fast(a,b)
+    
+    return (a * b ) / multiple
 
 if __name__ == '__main__':
-    input = sys.stdin.read()
-    a, b = map(int, input.split())
-    print(lcm_naive(a, b))
+    a, b = map(int, input().split())
+    print(lcm_fast(a, b))
 

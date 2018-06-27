@@ -1,16 +1,35 @@
 #include <iostream>
 
-long long lcm_naive(int a, int b) {
-  for (long l = 1; l <= (long long) a * b; ++l)
-    if (l % a == 0 && l % b == 0)
-      return l;
+long long gcd_fast(long long a, long long b) 
+{
+        long long temp = 0;
 
-  return (long long) a * b;
+        if( a < b) {
+                temp = b;
+                b = a;
+                a = temp;
+        }
+
+        if( b == 0) {
+                return a;
+        } else {
+                return gcd_fast(a % b, b);
+        }
+
+}
+
+long long lcm_fast(long long  a, long long b) 
+{
+        int multiple = 0;
+
+        multiple = gcd_fast(a, b);
+
+        return ((long long)(a * b)) / multiple ;
 }
 
 int main() {
-  int a, b;
+  long long a, b;
   std::cin >> a >> b;
-  std::cout << lcm_naive(a, b) << std::endl;
+  std::cout << lcm_fast(a, b) << std::endl;
   return 0;
 }
